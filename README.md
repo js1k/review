@@ -5,25 +5,17 @@
 yarn install
 ```
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+## js纯函数(Pure function)
+定义：一个函数的执行结果只依赖于他自己的参数，并且执行过程没有任何副作用
 
-### Compiles and minifies for production
-```
-yarn build
-```
 
-### Run your unit tests
 ```
-yarn test:unit
+ 1. 函数返回结果只依赖于自己的参数
+ 2. 函数执行过程里面没有副作用
 ```
+随机数 date都会使函数不纯
 
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+好处：
+1.测试以及重构
+如果传入相同的参数  结果永远相同
+重构不会影响业务层面 不会有副作用
