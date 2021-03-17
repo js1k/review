@@ -13,6 +13,9 @@ export default defineComponent({
   name: 'Home',
   components: {
     HelloWorld
+  },
+  methods: {
+
   }
 })
 </script>
