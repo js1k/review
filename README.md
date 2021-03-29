@@ -6,6 +6,62 @@
 yarn install
 ```
 
+## 贝塞尔曲线实现气泡
+
+</br>
+
+## vue-router 实现原理(broswer history) keep-alive 实现原理
+
+</br>
+
+## ES6 新特性及各功能点
+
+</br>
+
+## 闭包原理及优缺点
+
+</br>
+
+## js 继承 及 原型 原型链的深入
+
+</br>
+
+## js constructor 及 super
+
+</br>
+
+## js 函数的合成与柯里化
+
+1. 函数的合成
+
+    - 如果一个值要经过多个函数，才能变成另外一个值，就可以把所有中间步骤合并成一个函数，这叫做“函数的合成”
+
+2. 柯里化
+    - 所谓“柯里化”，就是把一个多参数的函数，转化为单参数函数
+
+```
+// 柯里化之前
+function add(x,y){
+    return x+y;
+}
+
+add(1,2) //3
+
+// 柯里化之后
+function addX(x){
+    return function(x){
+        return x+y
+    }
+}
+
+addX(2)(1) //3
+
+```
+
+有了柯里化之后，我们就能做到，所有函数只接受一个参数。
+
+</br>
+
 ## js 纯函数(Pure function)
 
 定义：一个函数的执行结果只依赖于他自己的参数，并且执行过程没有任何副作用
@@ -15,28 +71,26 @@ yarn install
  2. 函数执行过程里面没有副作用
 ```
 
+对于无副作用的纯函数，我们完全可以不用考虑函数内部是如何实现的，专注于编写业务代码
+
 随机数 date 都会使函数不纯
 
 好处：
 
--   1.测试以及重构
-    如果传入相同的参数 结果永远相同
-    重构不会影响业务层面 不会有副作用
--   2.纯函数可以并行执行
+1. 测试以及重构
 
-## 贝塞尔曲线实现气泡
+-   如果传入相同的参数 结果永远相同
+-   重构不会影响业务层面 不会有副作用
 
-## vue-router 实现原理(broswer history) keep-alive 实现原理
+2. 纯函数可以并行执行
 
-## ES6 新特性及各功能点
-
-## 闭包原理及优缺点
-
-## js 继承 及 原型 原型链的深入
-
-## js constructor 及 super
+</br>
 
 ## js 函数式编程思想及深入
+
+函数式变成主要基于数学函数和他的思想
+
+</br>
 
 ## web worker
 
@@ -64,11 +118,13 @@ javaScript 最大特点就是单线程，即同一时间智能做一件事，设
 > 异步分为轰任务和微任务
 
 1. 宏任务 macro task
-   整个 script 就是一个宏任务
-   setTimeout setTimeInterval
+
+    - 整个 script 就是一个宏任务
+    - setTimeout setTimeInterval
 
 2. 微任务 micro task
-   Promise
+
+    - Promise
 
 3. 任务队列
     1. 任务队列是一个事件的队列(也可以说是消息的队列)
@@ -76,3 +132,52 @@ javaScript 最大特点就是单线程，即同一时间智能做一件事，设
 ## postCss
 
 vue 中 scoped 通过 postCSS 给一个组件中的所有 dom 添加了一个独一无二的动态属性，然后，给 CSS 选择器额外添加一个对应的属性选择器来选择该组件中 dom，这种做法使得样式只作用于含有该属性的 dom 即内部组件
+
+</br>
+
+## addEventListener 与 on 区别
+
+addEventListener()方法设定一个事件监听器，当某一事件发生通过设定的参数执行操作
+
+-   addEventListerner(event,function,useCapture)
+-   event 是必须的，表示监听的时间，例如 click touchstart
+-   function 也是必须的，表示事件触发后调用的函数，可以是外部定义函数，也可以是匿名函数
+-   useCapture 是选填 true/false， 用于描述事件是冒泡还是捕获，true 表示捕获，默认 false 表示冒泡
+
+如果要移除 addEventListerner()
+
+-   removeEventListerner(event,function)
+
+为某元素设定事件触发函数时，可能会觉得 addEventListerner 与 on 事件的功能差不多，但是,addEventListerner 除了可以设置元素触发顺序外，还能多次绑定事件，因为 on 事件多次绑定的话会出现覆盖
+
+```
+<div id="div1" style="height:200px;background:#0cc">
+Click me
+</div>
+
+<script>
+	var dib1 = document.getElementById("div1");
+	div1.addEventListener('click', function(){
+		alert("message1");
+	});
+	div1.addEventListener('click', function(){
+		alert("message2");
+	});
+</script>
+
+```
+
+结果会依次提示"message1","message2"
+
+但是 js 这么写的话:
+
+```
+div1.onclick = function(){
+	alert("message1");
+};
+div1.onclick = function(){
+	alert("message2");
+}
+```
+
+就只会提示最后一个"message2"，因为 onlcik 作为对象 div1 的一个属性，第二次对其进行赋值就回覆盖之前的函数值，这样 on 事件在某些场合就不适用了
