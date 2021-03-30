@@ -1,6 +1,7 @@
 <template>
 <div class="hello">
     <div class="d1"
+    draggable="true"
          id="d1"></div>
     <div class="d2"
          id="d2"></div>
