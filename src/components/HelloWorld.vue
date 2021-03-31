@@ -1,7 +1,8 @@
 <template>
 <div class="hello">
     <div class="d1"
-         id="d1"></div>
+         id="d1"
+         draggable="true"></div>
     <div class="d2"
          id="d2"></div>
 </div>
@@ -17,10 +18,10 @@ export default defineComponent({
     },
     data() {
         return {
+
         };
     },
     setup() {
-        // console.log(1212);
         let offsetX = ref(0);
         let offsetY = ref(0);
         onMounted(() => {
@@ -31,21 +32,24 @@ export default defineComponent({
                 offsetY = e.offsetY;
             };
             dd.ondrag = (e: any) => {
-                const x = e.pageX;
-                const y = e.pageY;
-                console.log('e', e);
-                console.log(x, y);
-                // if (x == 0 && y == 0) {
-                //     return;
-                // }
-                // x -= offsetX.value;
-                // y -= offsetY.value;
+                let x = e.pageX;
+                let y = e.pageY;
+                // const x = e.offsetX;
+                // const y = e.offsetY;
+                if (x == 0 && y == 0) {
+                    return;
+                }
+                x -= offsetX.value;
+                y -= offsetY.value;
                 dd.style.left = x + 'px';
                 dd.style.top = y + 'px';
             };
             dd.ondragend = (e: any) => {
+                console.log(e);
                 const x = e.pageX;
                 const y = e.pageY;
+                // x -= offsetX.value;
+                // y -= offsetY.value;
                 dd.style.left = x + 'px';
                 dd.style.top = y + 'px';
             };
@@ -64,12 +68,13 @@ export default defineComponent({
     height: 100%;
     position: relative;
     border: 1px solid #ececec;
+
     .d1 {
         width: 150px;
         height: 150px;
         background: blueviolet;
-        left:0;
-        top:0;
+        left: 0;
+        top: 0;
         position: absolute;
     }
 
