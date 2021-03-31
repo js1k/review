@@ -1,10 +1,10 @@
 <template>
-<div class="hello">
-    <div class="d1"
-         id="d1"
+<div class="drag-page">
+    <div class="orgEl"
+         id="orgEl"
          draggable="true"></div>
-    <div class="d2"
-         id="d2"></div>
+    <!-- <div class="tagEl"
+         id="tagEl"></div> -->
 </div>
 </template>
 
@@ -25,33 +25,27 @@ export default defineComponent({
         let offsetX = ref(0);
         let offsetY = ref(0);
         onMounted(() => {
-            const dd = document.getElementById('d1') as any;
-            dd.ondragstart = (e: any) => {
-                console.log(e);
+            const orgEl = document.getElementById('orgEl') as any;
+            orgEl.ondragstart = (e: any) => {
                 offsetX = e.offsetX;
                 offsetY = e.offsetY;
             };
-            dd.ondrag = (e: any) => {
+            orgEl.ondrag = (e: any) => {
                 let x = e.pageX;
                 let y = e.pageY;
-                // const x = e.offsetX;
-                // const y = e.offsetY;
                 if (x == 0 && y == 0) {
                     return;
                 }
                 x -= offsetX.value;
                 y -= offsetY.value;
-                dd.style.left = x + 'px';
-                dd.style.top = y + 'px';
+                orgEl.style.left = x + 'px';
+                orgEl.style.top = y + 'px';
             };
-            dd.ondragend = (e: any) => {
-                console.log(e);
+            orgEl.ondragend = (e: any) => {
                 const x = e.pageX;
                 const y = e.pageY;
-                // x -= offsetX.value;
-                // y -= offsetY.value;
-                dd.style.left = x + 'px';
-                dd.style.top = y + 'px';
+                orgEl.style.left = x + 'px';
+                orgEl.style.top = y + 'px';
             };
         });
         return {
@@ -63,13 +57,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.hello {
+.drag-page {
     width: 100%;
     height: 100%;
     position: relative;
     border: 1px solid #ececec;
 
-    .d1 {
+    .orgEl {
         width: 150px;
         height: 150px;
         background: blueviolet;
@@ -78,7 +72,7 @@ export default defineComponent({
         position: absolute;
     }
 
-    .d2 {
+    .tagEl {
         width: 500px;
         height: 500px;
         background: cadetblue
