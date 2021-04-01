@@ -3,8 +3,8 @@
     <div class="orgEl"
          id="orgEl"
          draggable="true"></div>
-    <!-- <div class="tagEl"
-         id="tagEl"></div> -->
+    <div class="tagEl"
+         id="tagEl"></div>
 </div>
 </template>
 
@@ -27,17 +27,21 @@ export default defineComponent({
         onMounted(() => {
             const orgEl = document.getElementById('orgEl') as any;
             orgEl.ondragstart = (e: any) => {
-                offsetX = e.offsetX;
-                offsetY = e.offsetY;
+                // console.log(e);
+                offsetX = e.pageX;
+                offsetY = e.pageY;
+                // orgEl.style.left = offsetX.value + 'px';
+                // orgEl.style.top = offsetY.value + 'px';
             };
             orgEl.ondrag = (e: any) => {
-                let x = e.pageX;
-                let y = e.pageY;
-                if (x == 0 && y == 0) {
-                    return;
-                }
-                x -= offsetX.value;
-                y -= offsetY.value;
+                console.log(e);
+                const x = e.pageX;
+                const y = e.pageY;
+                // // if (x == 0 && y == 0) {
+                // //     return;
+                // // }
+                // // x -= offsetX.value;
+                // // y -= offsetY.value;
                 orgEl.style.left = x + 'px';
                 orgEl.style.top = y + 'px';
             };
@@ -46,6 +50,8 @@ export default defineComponent({
                 const y = e.pageY;
                 orgEl.style.left = x + 'px';
                 orgEl.style.top = y + 'px';
+                // console.log(offsetX.value, orgEl.style.left);
+                // console.log(offsetY.value, orgEl.style.top);
             };
         });
         return {
@@ -67,8 +73,6 @@ export default defineComponent({
         width: 150px;
         height: 150px;
         background: blueviolet;
-        left: 0;
-        top: 0;
         position: absolute;
     }
 
